@@ -1,7 +1,7 @@
 /*
  * Function wrappers for mathbench.
  *
- * Copyright (c) 2022-2023, Arm Limited.
+ * Copyright (c) 2022-2024, Arm Limited.
  * SPDX-License-Identifier: MIT OR Apache-2.0 WITH LLVM-exception
  */
 
@@ -21,6 +21,14 @@ static double
 powi_wrap (double x)
 {
   return __builtin_powi (x, (int) round (x));
+}
+
+static float
+sincospif_wrap (float x)
+{
+  float s, c;
+  sincospif (x, &s, &c);
+  return s + c;
 }
 
 #if __aarch64__ && defined(__vpcs)
@@ -47,6 +55,22 @@ __vpcs static v_double
 _Z_hypot_wrap (v_double x)
 {
   return _ZGVnN2vv_hypot (v_double_dup (5.0), x);
+}
+
+__vpcs static v_float
+_Z_modff_wrap (v_float x)
+{
+  v_float y;
+  v_float ret = _ZGVnN4vl4_modff (x, &y);
+  return ret + y;
+}
+
+__vpcs static v_double
+_Z_modf_wrap (v_double x)
+{
+  v_double y;
+  v_double ret = _ZGVnN2vl8_modf (x, &y);
+  return ret + y;
 }
 
 __vpcs static v_double
@@ -87,6 +111,14 @@ _Z_sincos_wrap (v_double x)
 {
   v_double s, c;
   _ZGVnN2vl8l8_sincos (x, &s, &c);
+  return s + c;
+}
+
+__vpcs static v_float
+_Z_sincospif_wrap (v_float x)
+{
+  v_float s, c;
+  _ZGVnN4vl4l4_sincospif (x, &s, &c);
   return s + c;
 }
 

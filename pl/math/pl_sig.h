@@ -15,6 +15,8 @@
 # define V_NAME_D1(fun) _ZGVnN2v_##fun
 # define V_NAME_F2(fun) _ZGVnN4vv_##fun##f
 # define V_NAME_D2(fun) _ZGVnN2vv_##fun
+# define V_NAME_F1_L1(fun) _ZGVnN4vl4_##fun##f
+# define V_NAME_D1_L1(fun) _ZGVnN2vl8_##fun
 # define PL_DECL_VF1(fun)                                                    \
     VPCS_ATTR float32x4_t V_NAME_F1 (fun##f) (float32x4_t);
 # define PL_DECL_VF2(fun)                                                    \
